@@ -32,11 +32,8 @@ public class UpdateCouponCommandHandler(ICouponRepository couponRepo)
             };
         }
 
-        existing.Name = request.CouponUpdateDTO.Name;
-        existing.Percent = request.CouponUpdateDTO.Percent;
-        existing.IsActive = request.CouponUpdateDTO.IsActive;
-
-        await couponRepo.UpdateAsync(existing);
+        var coupon = request.CouponUpdateDTO.Adapt<Coupon>();
+        await couponRepo.UpdateAsync(coupon);
 
         return new APIResponse
         {

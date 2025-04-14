@@ -3,8 +3,8 @@
 
 public interface IAuthRepository
 {
-    Task<LocalUser?> GetByUsernameAsync(string username);
-    Task<bool> IsUniqueUserAsync(string username);
+    Task<LocalUser?> GetByEmailAsync(string username);
+    Task<bool> IsUniqueEmailAsync(string username);
     Task<LocalUser> CreateAsync(LocalUser user);
 }
 

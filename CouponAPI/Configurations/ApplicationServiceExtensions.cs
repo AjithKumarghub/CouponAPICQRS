@@ -12,9 +12,9 @@ public static class ApplicationServiceExtensions
         // Register FluentValidation Validators
         services.AddValidatorsFromAssembly(currentAssembly);
 
-        
 
-        // Register Cross-Cutting Conserns
+
+        // Register Cross-Cutting Conserns Behaviors
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
         services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
         services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();

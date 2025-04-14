@@ -12,7 +12,7 @@ public class AuthorizationBehavior<TRequest, TResponse>(
     {
         if (request is not IAuthorizableRequest authRequest)
         {
-            return await next();
+            return await next(cancellationToken);
         }
 
         var httpContext = httpContextAccessor.HttpContext;
@@ -39,7 +39,7 @@ public class AuthorizationBehavior<TRequest, TResponse>(
             };
         }
 
-        return await next();
+        return await next(cancellationToken);
     }
 }
 

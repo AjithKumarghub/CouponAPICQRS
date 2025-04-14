@@ -1,12 +1,12 @@
 ﻿namespace CouponAPI.Application.Features.Auth.Login;
 
-public record LoginCommand(string UserName, string Password) : IRequest<APIResponse>;
+public record LoginCommand(string Email, string Password) : IRequest<APIResponse>;
 
 public class LoginCommandValidator : AbstractValidator<LoginCommand>
 {
     public LoginCommandValidator()
     {
-        RuleFor(x => x.UserName).NotEmpty();
+        RuleFor(x => x.Email).NotEmpty();
         RuleFor(x => x.Password).NotEmpty();
     }
 }
@@ -18,14 +18,14 @@ public class LoginCommandHandler(
 {
     public async Task<APIResponse> Handle(LoginCommand request, CancellationToken cancellationToken)
     {
-        var user = await authRepo.GetByUsernameAsync(request.UserName);
+        var user = await authRepo.GetByEmailAsync(request.Email);
         if (user is null || !hasher.VerifyPasswordHash(request.Password, user.Password, user.PasswordSalt))
         {
             return new APIResponse
             {
                 StatusCode = HttpStatusCode.BadRequest,
                 IsSuccess = false,
-                ErrorMessages = ["Username or password is incorrect"]
+                ErrorMessages = ["Email or password is incorrect"]
             };
         }
 

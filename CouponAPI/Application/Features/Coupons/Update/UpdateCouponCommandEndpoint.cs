@@ -12,6 +12,7 @@ public static class UpdateCouponCommandEndpoint
             var response = await mediator.Send(command);
             return Results.Json(response, statusCode: (int)response.StatusCode);
         })
+        .RequireAuthorization()
         .WithName("UpdateCoupon")
         .Accepts<CouponUpdateDTO>("application/json")
         .Produces<APIResponse>(200)

@@ -4,6 +4,7 @@ public static class SwaggerExtensions
 {
     public static IServiceCollection AddSwaggerWithJwt(this IServiceCollection services)
     {
+        // Register Swagger services
         services.AddOpenApiDocument(config =>
         {
             config.Title = "CouponAPI";

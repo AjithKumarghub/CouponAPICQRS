@@ -4,6 +4,7 @@ public static class JwtAuthenticationExtensions
 {
     public static IServiceCollection AddJwtAuthentication(this IServiceCollection services, IConfiguration config)
     {
+        // Register JwtTokenGenerator 
         var secret = config["ApiSettings:Secret"];
         if (string.IsNullOrWhiteSpace(secret))
             throw new InvalidOperationException("Missing JWT Secret in configuration.");
@@ -30,6 +31,9 @@ public static class JwtAuthenticationExtensions
                 RoleClaimType = ClaimTypes.Role
             };
         });
+
+        services.AddAuthorizationBuilder()
+    .AddPolicy("AdminOnly", policy => policy.RequireRole("admin")); // Role-based auth
 
         return services;
     }

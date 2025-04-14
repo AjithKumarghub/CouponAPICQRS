@@ -10,6 +10,7 @@ public static class CreateCouponCommandEndpoint
             var response = await mediator.Send(command);
             return Results.Json(response, statusCode: (int)response.StatusCode);
         })
+        .RequireAuthorization()
         .WithName("CreateCoupon")
         .Accepts<CouponCreateDTO>("application/json")
         .Produces<APIResponse>(201)

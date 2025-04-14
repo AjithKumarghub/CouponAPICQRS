@@ -3,13 +3,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Service Registration
 builder.Services.AddApplicationServices(); // MediatR, Validators, Behaviors
 builder.Services.AddInfrastructureServices(builder.Configuration); // DB, Repositories
-
 builder.Services.AddJwtAuthentication(builder.Configuration);      // JWT Auth Setup
 builder.Services.AddSwaggerWithJwt();                              // Swagger + JWT Auth
-
-builder.Services.AddAuthorizationBuilder()
-    .AddPolicy("AdminOnly", policy => policy.RequireRole("admin")); // Role-based auth
-
 
 // Build App
 var app = builder.Build();

@@ -11,8 +11,9 @@ public class JwtTokenGenerator(IConfiguration config) : IJwtTokenGenerator
 
         var tokenDescriptor = new SecurityTokenDescriptor
         {
-            Subject = new ClaimsIdentity([
-                new Claim(ClaimTypes.Name, user.UserName),
+            Subject = new ClaimsIdentity(
+            [
+                new Claim(ClaimTypes.Name, user.Name),
                 new Claim(ClaimTypes.Role, user.Role)
             ]),
             Expires = DateTime.UtcNow.AddDays(7),
